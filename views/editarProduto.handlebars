@@ -1,0 +1,19 @@
+
+    {{#each produto}}
+    <form method="post" action="/editarProd/{{produto.id}}">
+
+    <label for="inputNome">Nome:</label>
+    <input type="text" name="nome" id="nome" value="{{nome}}">
+    <label for="inputDescricao">Descrição:</label>
+    <input type="text" name="descricao" id="desc" value="{{descricao}}">
+    <label for="inputValor">Valor:</label>
+    <input type="number" min="0" max="100" step=".01" name="valor" id="valor" value="{{valor}}">
+    <label for="inputColecao">Coleção:</label>
+    <input type="text" name="colecao" id="colecao" value="{{colecao}}">
+
+    <button type="submit">Alterar</button>
+    
+</form>
+
+{{/each}}
+

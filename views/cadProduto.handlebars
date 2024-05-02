@@ -1,0 +1,39 @@
+<div
+  class="w-full h-fit text-black px-3 py-5 flex justify-center items-center md:mt-12"
+>
+  <div class="max-w-screen-2xl w-full h-fit flex flex-col gap-5 items-center">
+    <div
+      class="w-full h-full border border-gray-50 shadow-md rounded-md flex flex-col p-3"
+    >
+    <div class="flex items-center gap-2 font-bold">
+        <div class="bg-gradient-to-b from-orange-400 to-red-600 w-1 h-5"></div>    
+        <h2 class="text-2xl">Cadastrar Produtos</h2>
+    </div>
+      <div class="w-full h-fit p-3 flex flex-col">
+
+        <form action="/cadastrar" method="POST" class="flex flex-col gap-3 font-semibold">
+          <label class="form-label ">Imagem:</label>
+          <input type="file" name="imagem" class="form-control" id="imagem" />
+          <label class="form-label">Nome:</label>
+          <input type="name" name="nome" class="form-control" id="nome" />
+          <label class="form-label">Descrição:</label>
+          <input
+            type="name"
+            name="descricao"
+            class="form-control"
+            id="descricao"
+          />
+          <label class="form-label">Valor:</label>
+          <input type="number" name="valor" class="form-control" id="valor" />
+          <label class="form-label">Categoria:</label>
+          <input
+            type="name"
+            name="categoria"
+            class="form-control"
+            id="categoria"
+          />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
