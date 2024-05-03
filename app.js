@@ -46,17 +46,17 @@ app.get('/carrinho', (req,res)=>{
 })
 
 
-app.get("/cadastrarProduto", (req, res) => {
-  res.render("cadProduto");
-});
-
 //rota post Cadastrar produto
-app.post("/cadastrarProd", (req, res) => {
+app.get("/cadastrarProduto", (req, res)=>{
+  res.render("cadProduto")
+})
+app.post("/cadastrarProduto", (req, res) => {
   produto.create({
+    imagem: req.body.imagem,
     nome: req.body.nome,
-    descricao: req.body.descricao,
     valor: req.body.valor,
-    colecao: req.body.colecao,
+    descricao: req.body.descricao,
+    categoria: req.body.categoria,
   })
     .then(() => {
       res.redirect("/cadastrarProduto");
@@ -158,6 +158,49 @@ app.get("/user/perfil/:id", (req,res) =>{
 //     res.status(500).send("Erro ao renderizar o perfil");
 //   }
  })
+
+ //rota para consultar
+ app.get("/consultar", (req, res)=>{
+  produto.findAll().then((produtos)=>{
+    console.log("cheghei aquii")
+    res.render("consultar", {produto: produtos})
+  }).catch(function(erro){
+    res.send("Falha ao consultar os dados: " + erro)
+  })
+});
+
+//rota para editar
+app.get("/editar/:id", function(req, res){
+  produto.findAll({where: {"id": req.params.id}}).then(function(produtos){
+    res.render("editarProduto", {produto: produtos})
+  }).catch(function(erro){
+      res.send("Falha ao acessar a pagina editar: " + erro)
+  })
+})
+
+//metodo para atualizar da rota editar
+app.post("/atualizar", function(req, res){
+  produto.update({
+      imagem: req.body.imagem,
+      nome: req.body.nome,
+      valor: req.body.valor,
+      descricao: req.body.descricao,
+      categoria: req.body.categoria
+  }, {where: {id: req.body.id}}).then(function(){
+      res.redirect("/consultar")
+  }).catch(function(erro){
+      res.send("Falha ao atualizar os dados: " + erro)
+  })
+})
+
+// botão pra excluir
+app.get("/excluir/:id", function(req, res){
+  produto.destroy({where: {"id": req.params.id}}).then(function(){
+      res.redirect("/consultar")
+  }).catch(function(erro){
+      res.send("erro ao excluir"+erro)
+  })
+})
 
 //rota login
 app.get("/login", (req, res) => {

@@ -6,11 +6,11 @@ const Produtos = db.sequelize.define("produtos",{
         autoIncrement: true,
         primaryKey: true
     },
-    nome:{
+    imagem:{
         type: db.Sequelize.STRING,
         allowNull:false
     },
-    descricao:{
+    nome:{
         type: db.Sequelize.STRING,
         allowNull: false
     },
@@ -18,7 +18,11 @@ const Produtos = db.sequelize.define("produtos",{
         type: db.Sequelize.DOUBLE,
         allowNull: false
     },
-    colecao:{
+    descricao:{
+        type: db.Sequelize.STRING,
+        allowNull: false
+    },
+    categoria:{
         type: db.Sequelize.STRING,
         allowNull: false
     },

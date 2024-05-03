@@ -12,23 +12,38 @@
       <div class="w-full h-fit p-3 flex flex-col">
 
         <form
-          action="/cadastrar"
+          action="/cadastrarProduto"
           method="POST"
           class="flex flex-col gap-5 font-semibold"
         >
-
-         <div>
+         <div class="flex flex-col gap-1 md:w-[38%]">
+              <label for="name">Imagem:</label>
+              <div
+                class="flex items-center gap-2 border-b border-red-500 p-1 w-full font-normal"
+              >
+               <i class="fa-solid fa-image text-red-500"></i>
+                <input
+                  type="text"
+                  name="imagem"
+                  id="imagem"
+                  value=""
+                  class="outline-none w-full"
+                  required
+                />
+              </div>
+            </div>
+         {{!-- <div>
             <label class="form-label">Imagem do Produto:
               <div  class="pt-2" >
                 <input
-                  type="file"
+                  type="text"
                   name="imagem"
                   id="imagem"
                   class="outline-none bg-red"
                 />
               </div>
             </label>
-          </div>
+          </div> --}}
 
           <div class="flex flex-col md:flex-row gap-16 w-4/5 justify-between">
             <div class="flex flex-col gap-1 md:w-1/2">
@@ -57,7 +72,7 @@
                 <input
                   type="number"
                   name="valor"
-                  id="valor value="
+                  id="valor" "value="
                   class="outline-none w-full"
                 />
               </div>
@@ -75,11 +90,11 @@
               ></textarea>
             </div>
           </div>
-          <div class=" md:w-1/5 flex gap-4">
+          <div class=" md:w-2/6 flex gap-4">
             <label class="form-label">Categoria:</label>
             <div class="text-red-500">
               <select
-                name="origem"
+                name="categoria"
                 class="form-select outline-none border border-red-500 rounded-lg w-full"
                 aria-label="Default select example"
               >
@@ -95,7 +110,7 @@
           <div
             class="self-start mt-6 border bg-red-500 rounded-lg px-6 py-2 text-white font-semibold"
           >
-            <button>Cadastrar</button>
+            <button type="submit">Cadastrar</button>
           </div>
         </form>
       </div>
