@@ -45,58 +45,22 @@ app.get('/carrinho', (req,res)=>{
   res.render('cart')
 })
 
-
-//rota post Cadastrar produto
-app.get("/cadastrarProduto", (req, res)=>{
-  res.render("cadProduto")
+/*-------------- PARTE DO ADM ---------------*/ 
+//login do adm
+app.get("/loginAdm", (req, res)=>{
+  res.render("loginAdm")
 })
-app.post("/cadastrarProduto", (req, res) => {
-  produto.create({
-    imagem: req.body.imagem,
-    nome: req.body.nome,
-    valor: req.body.valor,
-    descricao: req.body.descricao,
-    categoria: req.body.categoria,
-  })
-    .then(() => {
-      res.redirect("/cadastrarProduto");
-    })
-    .catch((erro) => {
-      console.log("Falha ao cadastrar os dados" + erro);
-    });
-});
+
+//Painel do adm
+app.get("/painelAdm", (req, res)=>{
+  res.render("painelAdm")
+})
+
 //rota cadastro
 app.get("/signin", (req, res) => {
   res.render("signin");
 });
 
-
-app.get("/editarProduto/:id", (req, res) => {
-  const produtoId = req.params.id;
-  produto.findByPk(produtoId)
-    .then((produtos) => {
-      res.render("editarProduto", { produto : produtos });
-    })
-    .catch((erro) => {
-      console.error("Erro ao buscar usuario para ediçao", erro);
-    });
-});
-
-app.post("/editarProd/:id", (req, res) => {
-  const produtoId = req.params.id;
-  const { nome, descricao, valor, colecao } = req.body;
-  produto.update(
-    { nome, descricao, valor, colecao },
-    { where: { id: produtoId } }
-  )
-    .then(() => {
-      res.redirect("/listar");
-    })
-    .catch((err) => {
-      console.error("Erro ao atualizar usuário:", err);
-      res.status(500).send("Erro ao atualizar usuário");
-    });
-});
 
 //metodo post do signin
 app.post("/signin", async (req, res) => {
@@ -123,19 +87,15 @@ app.post("/signin", async (req, res) => {
   })
 }});
 
-app.post("/editar/:id/excluir", (req, res) => {
+
+app.get("/editarProduto/:id", (req, res) => {
   const produtoId = req.params.id;
-  Produto.destroy({
-    where: {
-      id: produtoId,
-    },
-  })
-    .then(() => {
-      res.redirect("/listar");
+  produto.findByPk(produtoId)
+    .then((produtos) => {
+      res.render("editarProduto", { produto : produtos });
     })
-    .catch((err) => {
-      console.error("Erro ao excluir usuário:", err);
-      res.status(500).send("Erro ao excluir usuário");
+    .catch((erro) => {
+      console.error("Erro ao buscar usuario para ediçao", erro);
     });
 });
 
@@ -158,7 +118,25 @@ app.get("/user/perfil/:id", (req,res) =>{
 //     res.status(500).send("Erro ao renderizar o perfil");
 //   }
  })
-
+//rota post Cadastrar produto
+app.get("/cadastrarProduto", (req, res)=>{
+  res.render("cadProduto")
+})
+app.post("/cadastrarProduto", (req, res) => {
+  produto.create({
+    imagem: req.body.imagem,
+    nome: req.body.nome,
+    valor: req.body.valor,
+    descricao: req.body.descricao,
+    categoria: req.body.categoria,
+  })
+    .then(() => {
+      res.redirect("/cadastrarProduto");
+    })
+    .catch((erro) => {
+      console.log("Falha ao cadastrar os dados" + erro);
+    });
+});
  //rota para consultar
  app.get("/consultar", (req, res)=>{
   produto.findAll().then((produtos)=>{
@@ -193,6 +171,40 @@ app.post("/atualizar", function(req, res){
   })
 })
 
+
+app.post("/editarProd/:id", (req, res) => {
+  const produtoId = req.params.id;
+  const { nome, descricao, valor, colecao } = req.body;
+  produto.update(
+    { nome, descricao, valor, colecao },
+    { where: { id: produtoId } }
+  )
+    .then(() => {
+      res.redirect("/listar");
+    })
+    .catch((err) => {
+      console.error("Erro ao atualizar usuário:", err);
+      res.status(500).send("Erro ao atualizar usuário");
+    });
+});
+
+app.post("/editar/:id/excluir", (req, res) => {
+  const produtoId = req.params.id;
+  Produto.destroy({
+    where: {
+      id: produtoId,
+    },
+  })
+    .then(() => {
+      res.redirect("/listar");
+    })
+    .catch((err) => {
+      console.error("Erro ao excluir usuário:", err);
+      res.status(500).send("Erro ao excluir usuário");
+    });
+});
+
+
 // botão pra excluir
 app.get("/excluir/:id", function(req, res){
   produto.destroy({where: {"id": req.params.id}}).then(function(){
@@ -200,6 +212,10 @@ app.get("/excluir/:id", function(req, res){
   }).catch(function(erro){
       res.send("erro ao excluir"+erro)
   })
+})
+
+app.get("/gerenciarDelivery", (req, res)=>{
+  res.render("gerenciarDelivery")
 })
 
 //rota login

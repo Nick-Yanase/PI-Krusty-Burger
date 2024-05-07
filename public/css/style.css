@@ -27,9 +27,10 @@
   bottom: 100px;
 }
 
-h1, h2 {
+h1, h2, h2 span {
   font-family: "Ubuntu";
 }
+
 
 h3, p, span{
   font-family: "lato";
